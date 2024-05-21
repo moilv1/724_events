@@ -13,7 +13,7 @@ const Slider = () => {
 
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0),
+      () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0), // Rajout de '-1' car 1 slide vide
       5000
     );
   };
@@ -48,7 +48,7 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === radioIdx} // Remplacement de 'idx' par index
                 />
               ))}
             </div>
