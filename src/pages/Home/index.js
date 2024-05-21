@@ -12,8 +12,16 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
 const Page = () => {
-  const {last} = useData()
+  const { data } = useData();
+  let last;
+
+  if (data?.events?.length) {
+  const [latestEvent] = data.events.sort((a, b) => new Date(b.date) - new Date(a.date));
+  last = latestEvent;
+  }
+
   return <>
     <header>
       <Menu />
@@ -155,6 +163,8 @@ const Page = () => {
       </div>
     </footer>
   </>
+  
 }
+
 
 export default Page;
