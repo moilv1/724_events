@@ -14,7 +14,7 @@ import { useData } from "../../contexts/DataContext";
 
 
 const Page = () => {
-  const { data } = useData();
+  const { data } = useData();  // correction 'last' pour récup le dernier projet en date
   let last;
 
   if (data?.events?.length) {
