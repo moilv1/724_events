@@ -7,6 +7,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+   
+
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
@@ -19,8 +22,27 @@ const Slider = () => {
   };
 
   useEffect(() => {
-    nextCard();
-  });
+    const interval = setInterval(() =>{
+      if(!paused){
+        nextCard()
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  },[index, paused]); // Déclenche le changement d'image lorsque l'index ou l'état de pause change
+  
+  useEffect(() => {
+    const handleKeyPress =(event) =>{
+      if(event.code ==="Space"){
+        event.preventDefault();
+        setPaused((prevPaused) =>!prevPaused)
+      }
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []); // Utilisation d'un tableau vide pour exécuter cette fonction uniquement une fois lors du montage
+  
   
   return (
     <div className="SlideCardList">

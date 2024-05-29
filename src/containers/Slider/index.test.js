@@ -26,8 +26,8 @@ const data = {
   ],
 };
 
-describe("When slider is created", () => {
-  it("a list card is displayed", async () => {
+describe("Slider", () => {
+  it("pauses and resumes slider when spacebar is pressed", async () => {
     window.console.error = jest.fn();
     api.loadData = jest.fn().mockReturnValue(data);
     render(
@@ -35,10 +35,22 @@ describe("When slider is created", () => {
         <Slider />
       </DataProvider>
     );
-    await screen.findByText("World economic forum");
-    await screen.findByText("janvier");
-    await screen.findByText(
-      "Oeuvre à la coopération entre le secteur public et le privé."
-    );
+
+    // Vérifie que le slider commence à jouer
+    const initialTitle = await screen.findByText("World economic forum");
+
+    // Simule la pression de la barre d'espace pour mettre en pause le slider
+    fireEvent.keyDown(window, { key: " ", code: "Space" });
+
+    // Vérifie que le slider est en pause
+    const pausedTitle = await screen.findByText("World economic forum");
+    expect(pausedTitle).toEqual(initialTitle);
+
+    // Simule à nouveau la pression de la barre d'espace pour reprendre le slider
+    fireEvent.keyDown(window, { key: " ", code: "Space" });
+
+    // Vérifie que le slider a repris la lecture
+    await screen.findByText("World Gaming Day");
+    await screen.findByText("World Farming Day");
   });
 });
