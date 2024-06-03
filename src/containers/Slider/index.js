@@ -17,7 +17,7 @@ const Slider = () => {
   const nextCard = () => {
     setTimeout(
       () => setIndex(index < byDateDesc.length -1 ? index + 1 : 0), // Rajout de '-1' car 1 slide vide
-      5000
+      3000
     );
   };
 
@@ -26,11 +26,7 @@ const Slider = () => {
       if(!paused){
         nextCard()
       }
-    }, 5000);
-    return () => clearInterval(interval);
-  },[index, paused]); // Déclenche le changement d'image lorsque l'index ou l'état de pause change
-  
-  useEffect(() => {
+    }, 3000);
     const handleKeyPress =(event) =>{
       if(event.code ==="Space"){
         event.preventDefault();
@@ -38,10 +34,8 @@ const Slider = () => {
       }
     };
     window.addEventListener("keydown", handleKeyPress);
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, []); // Utilisation d'un tableau vide pour exécuter cette fonction uniquement une fois lors du montage
+    return () => clearInterval(interval);
+  },[index, paused]); // Déclenche le changement d'image lorsque l'index ou l'état de pause change
   
   
   return (
