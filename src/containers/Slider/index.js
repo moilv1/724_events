@@ -37,7 +37,6 @@ const Slider = () => {
     return () => clearInterval(interval);
   },[index, paused]); // Déclenche le changement d'image lorsque l'index ou l'état de pause change
   
-  
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (

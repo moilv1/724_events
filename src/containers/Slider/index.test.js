@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Slider from "./index";
 import { api, DataProvider } from "../../contexts/DataContext";
+import { fireEvent } from '@testing-library/react';
 
 const data = {
   focus: [
